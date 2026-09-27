@@ -1,0 +1,57 @@
+name: Generate PDFs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-xetex \
+            texlive-latex-extra \
+            texlive-latex-recommended \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-pictures \
+            texlive-plain-generic
+
+      - name: Install fonts
+        run: |
+          echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
+          sudo apt-get install -y ttf-mscorefonts-installer fonts-texgyre
+          sudo fc-cache -f
+
+      - name: Compile all PDFs
+        run: |
+          find . -name "entry.tex" -not -path "./.git/*" -not -path "./templates/*" \
+            | sort | while read tex; do
+              dir="${tex%/entry.tex}"
+              bash compile.sh "${dir#./}/entry.tex"
+            done
+
+      - name: Compile individual problems
+        run: |
+          find national-internal/problems -name "*.tex" | sort | while read tex; do
+            bash compile-problem.sh "$tex" "national-internal/problems"
+          done
+
+      - name: Set release date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: pdf-${{ env.DATE }}-${{ github.run_number }}
+          name: "Contest PDFs (${{ env.DATE }})"
+          files: |
+            **/entry.pdf
+            national-internal/problems/*.pdf

@@ -1,0 +1,153 @@
+% Problem style template (English Only)
+% Original: https://github.com/programming-in-th/statements/blob/master/templates/style.sty
+% Edited by Borworntat D. & Cleaned up for compatibility
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage[includeheadfoot, a4paper, total={7in, 10in}, top=0.5cm]{geometry} 
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
+\usepackage{xcolor, colortbl} % Combined xcolor loads here
+\usepackage{soul}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyvrb}
+\usepackage{verbatim}
+\usepackage{longfbox}
+\usepackage{setspace}
+\setlength{\parskip}{6pt}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{tikz}
+
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{12pt}{4pt}
+
+% Font checking fallbacks
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\IfFontExistsTF{Helvetica}{
+  \setsansfont{Helvetica}[
+    BoldFont={Helvetica Neue Medium} % Or simply {Helvetica Medium} depending on your system OS
+  ]
+}{
+  % Fall back to TeX Gyre Heros. It ships no "Medium" weight (only
+  % Regular/Bold/Italic/BoldItalic), so let fontspec auto-detect the bold
+  % faces instead of requesting a nonexistent "* Medium".
+  \setsansfont{TeX Gyre Heros}
+}
+\pagestyle{fancy}
+\fancyhf{}
+% Ensure the assets path works or degrades gracefully
+\chead{\IfFileExists{./assets/cp-logo.jpg}{\includegraphics[width=2cm]{./assets/cp-logo.jpg}}{}}
+
+\rfoot{
+  \hrule
+  \vspace{2mm}
+  CPCU ICPC Team Selection Contest \hfill \thepage
+}
+
+\renewcommand{\headrulewidth}{1pt}
+\setlength{\headheight}{61pt}
+
+\setdefaultlanguage{english}
+
+% Monospace font handling
+\IfFontExistsTF{Inconsolata-Regular.ttf}{
+  \newfontfamily\myinconsolata[
+    Path=./templates/,
+    Scale=1.2,
+    BoldFont={Inconsolata-Bold.ttf}
+  ]{Inconsolata-Regular.ttf}
+  \renewcommand{\ttdefault}{myinconsolata}
+}{}
+
+\newenvironment{problem}[3]
+{
+  \begin{center}
+  {\sffamily\fontsize{25}{30}\selectfont\bfseries Problem {#1}} \\[4pt]
+  {\sffamily\fontsize{21}{25}\selectfont\bfseries #2} \\[6pt]
+  {\sffamily\fontsize{14}{17}\selectfont Time limit: #3}
+  \end{center}
+  \vspace{4pt}
+}{}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=magenta,      
+  urlcolor=blue
+}
+
+\newcommand{\InputFile}{\section*{\sffamily{Input}}}
+\newcommand{\OutputFile}{\section*{\sffamily{Output}}}
+\newcommand{\Examples}{\section*{\sffamily{Sample Input and Output}}}
+\newcommand{\InputFileName}{Sample Input}
+\newcommand{\OutputFileName}{Sample Output}
+\newcommand{\Note}{\section*{Note}}
+\newcommand{\Source}{\section*{Source}}
+\newcommand{\Explaination}[1]{\textit{\Large #1}}
+
+\newlength{\thelinewidth}
+\thelinewidth=\textwidth
+\newlength{\exmpwidinf}
+\newlength{\exmpwidouf}
+\newlength{\exmpwidewid}
+
+\exmpwidinf=0.47\thelinewidth
+\exmpwidouf=0.47\thelinewidth
+\exmpwidewid=0.9\thelinewidth
+
+\makeatletter
+\@ifundefined{addto@hook}{}{%
+  \addto@hook{\every@verbatim}{\topsep=0pt\relax}%
+}
+\makeatother
+
+% \newenvironment{example}[1][]{
+%   \ttfamily\obeylines\obeyspaces\frenchspacing
+%   \newcommand{\exmp}[2]{ % Fixed argument referencing
+%     \setlength{\tabcolsep}{6pt}
+%     \renewcommand{\arraystretch}{1.5}
+%     \noindent
+%     \begin{tabular}{|l|l|}
+%     \hline
+%     \multicolumn{1}{|l|}{\sffamily \textbf{\InputFileName}} &
+%     \multicolumn{1}{l|}{\sffamily \textbf{\OutputFileName}} \\
+%     \hline
+%     \begin{minipage}[t]{\exmpwidinf}\rightskip=0pt plus 1fill\relax##1\rule[0pt]{0pt}{0pt}\end{minipage}&
+%     \begin{minipage}[t]{\exmpwidouf}\rightskip=0pt plus 1fill\relax##2\rule[0pt]{0pt}{0pt}\end{minipage}\\
+%     \hline
+%     \end{tabular}
+%     \renewcommand{\arraystretch}{1}
+%     \vspace{1em}
+%   }
+% }{
+% }
+
+\newenvironment{example}[1][]{
+  \ttfamily\obeylines\obeyspaces\frenchspacing
+  \newcommand{\exmp}[3]{
+    \setlength{\tabcolsep}{6pt}
+    \renewcommand{\arraystretch}{1.5}
+    \noindent
+    \begin{tabular}{|l|l|}
+    \multicolumn{1}{l}{\sffamily \textbf{\InputFileName~\###1}}&
+    \multicolumn{1}{l}{\sffamily \textbf{\OutputFileName~\###1}}\\
+    \hline
+    \begin{minipage}[t]{\exmpwidinf}\rightskip=0pt plus 1fill\relax##2\rule[0pt]{0pt}{0pt}\end{minipage}&
+    \begin{minipage}[t]{\exmpwidouf}\rightskip=0pt plus 1fill\relax##3\rule[0pt]{0pt}{0pt}\end{minipage}\\
+    \hline
+    \end{tabular}
+    \renewcommand{\arraystretch}{1}
+  }
+}{
+}
+
+\newcommand{\iobox}[1]{%
+  \fbox{\parbox[t]{0.6\textwidth}{\raggedright\ttfamily #1\strut}}%
+}
