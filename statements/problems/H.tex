@@ -1,81 +1,69 @@
-\begin{problem}{H}{Hello}{1 second}
+\begin{problem}{H}{Helix Havoc}{1 second}
 
 \noindent
-Hello World
+Kogoro and Conan were invited to stay overnight at a secluded castle belonging to the wealthy Mawari family. The family was holding a grand reunion that night to celebrate the return of their most precious heirloom, the legendary \textbf{Helix Plate}, a giant rectangular plate forged entirely from pure gold.
+
+\noindent
+The plate was said to hold a peculiar secret. Its surface was engraved with the numbers $1,2,3,\ldots$ in an increasing \textbf{counterclockwise} spiral starting from the \textbf{upper-left} corner. The exact dimensions of the plate had never been publicly recorded, but the family knew that \textbf{both dimensions were odd and at least $3$}. The \textbf{Helix Number} of the plate is defined by taking the median of each row and then finding the median of those row medians.
+
+\noindent
+For example, when the dimensions are $(N,M)=(3,5)$, the plate is filled as follows:
+
+\begin{tabular}{ccccc}
+  1 & 12 & 11 & 10 & 9 \\
+  2 & 13 & 14 &15 & 8 \\
+  3 & 4 & 5 & 6 & 7
+\end{tabular}
+
+\noindent
+The medians of the three rows are $10$, $13$, and $5$, respectively. Taking the median of these three values gives $10$. Therefore, the \textbf{Helix Number} of this plate is $10$.
+
+\noindent
+Late that night, a loud bang echoed through the castle. Everyone rushed toward the head of the Mawari family's bedroom, only to find the door locked from the inside. After forcing the door open, they discovered the head of the family lying dead on the floor. The safe had been opened, and the Helix Plate was nowhere to be found.
+
+\noindent
+Conan immediately noticed that the victim's hand was pointing toward the empty safe, and there was a number $K$ written in blood on the floor next to the body. He suspected that this was the victim's final clue, deducing that $K$ represented the \textbf{Helix Number} of the stolen plate.
+
+\noindent
+Determine all possible dimensions $(N,M)$ of the missing Helix Plate whose Helix Number is exactly $K$. Print at most $50$ such pairs.
 
 \InputFile
 
 \noindent
-Hello World
+The first line of the input contains a single integer $T$ ($1 \le T \le 1000$) --- the number of testcases.
+
+\noindent
+Each of the following $T$ lines contains a single integer $K$ ($1 \le K \le 10^{15}$), the \textbf{Helix Number}.
+
+\noindent
+It is guaranteed that the sum of $K^{1/3}$ over all testcases does not exceed $10^5$.
 
 \OutputFile
 
 \noindent
-Hello World
+For each testcase, print the answer in the following format:
+
+\noindent
+On the first line, print a single integer $C$ --- the total number of valid pairs $(N, M)$ that result in a \textbf{Helix Number} equal to $K$.
+
+\noindent
+Then, print $\min(C, 50)$ lines. Each of these lines should contain two space-separated integers $N$ and $M$, representing the dimensions of a valid plate. If there are multiple ways to choose $50$ pairs, any valid subset will be accepted.
 
 \Examples
 
 \begin{example}
-\exmp{1}{
-1234
-}{
-Hello World
+\exmp{1}{3
+10
+14
+22
+}{1
+3 5
+0
+2
+3 13
+7 5
 }
 \end{example}
-\Explaination{\upshape\normalsize The glass diagonals cut the interior of the $5 \times 6$ pocket into many separate regions, as drawn below. Breaking the glass in $13$ suitably chosen cells is enough to connect them all into one region, and no smaller set of breaks works.}
-
-\begin{center}
-\begin{tikzpicture}[scale=0.62, line join=round]
-  % cell grid lines (open cell boundaries)
-  \draw[gray!40] (1,0)--(1,5) (2,0)--(2,5) (3,0)--(3,5) (4,0)--(4,5) (5,0)--(5,5);
-  \draw[gray!40] (0,1)--(6,1) (0,2)--(6,2) (0,3)--(6,3) (0,4)--(6,4);
-  % outer border of the pocket
-  \draw[very thick] (0,0) rectangle (6,5);
-  % glass diagonals, transcribed row by row from the input
-  \draw[thick,blue!70!black]
-    (0,4)--(1,5) (1,5)--(2,4) (2,4)--(3,5) (3,4)--(4,5) (4,5)--(5,4) (5,4)--(6,5) % row 1: /\//\/
-    (0,4)--(1,3) (1,3)--(2,4) (2,4)--(3,3) (3,3)--(4,4) (4,4)--(5,3) (5,3)--(6,4) % row 2: \/\/\/
-    (0,2)--(1,3) (1,3)--(2,2) (2,2)--(3,3) (3,2)--(4,3) (4,3)--(5,2) (5,2)--(6,3) % row 3: /\//\/
-    (0,2)--(1,1) (1,1)--(2,2) (2,2)--(3,1) (3,1)--(4,2) (4,2)--(5,1) (5,1)--(6,2) % row 4: \/\/\/
-    (0,1)--(1,0) (1,0)--(2,1) (2,1)--(3,0) (3,0)--(4,1) (4,1)--(5,0) (5,0)--(6,1);% row 5: \/\/\/
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 1: the $5 \times 6$ glass layout.}
-\end{center}
-
-\begin{example}
-\exmp{2}{
-2 2
-\textbackslash/
-/\textbackslash
-}{
-  3
-}
-\end{example}
-\Explaination{\upshape\normalsize Here the four diagonals meet at the centre and cut the $2 \times 2$ pocket into the four regions shown below. For instance, breaking the glass in the top-left, bottom-left, and bottom-right cells connects all of them into one region, so $3$ operations suffice; no fewer than $3$ can work.}
-
-\begin{center}
-\begin{tikzpicture}[scale=1.6, line join=round]
-  % the four regions, coloured
-  \fill[blue!12]   (0,2)--(2,2)--(1,1)--cycle; % top
-  \fill[orange!18] (0,0)--(0,2)--(1,1)--cycle; % left
-  \fill[green!16]  (0,0)--(2,0)--(1,1)--cycle; % bottom
-  \fill[red!12]    (2,0)--(2,2)--(1,1)--cycle; % right
-  % open cell boundaries
-  \draw[gray!55,dashed] (1,0)--(1,2) (0,1)--(2,1);
-  % outer border
-  \draw[very thick] (0,0) rectangle (2,2);
-  % glass diagonals (the two diagonals meet at the centre)
-  \draw[thick,blue!70!black] (0,0)--(2,2) (0,2)--(2,0);
-  % region labels
-  \node at (1,1.58) {\small 1};
-  \node at (0.42,1) {\small 2};
-  \node at (1,0.42) {\small 3};
-  \node at (1.58,1) {\small 4};
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 2: the glass forms an ``X'' that cuts the pocket into four regions.}
-\end{center}
 
 \pagebreak
 
