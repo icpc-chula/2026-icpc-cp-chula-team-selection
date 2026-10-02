@@ -1,86 +1,40 @@
-\begin{problem}{A}{AI Error}{2 seconds}
+\begin{problem}{A}{Antibiotics}{1 second}
 
 \noindent
-Nobita received a tree with $N$ vertices, numbered $1$ to $N$, from Doraemon. However, Doraemon kept the root of the tree a secret. Additionally, each node in the tree has a color: either white (denoted as $0$) or black (denoted as $1$). 
+The mass poisoning incident has occurred in the hotel where Conan is currently residing.
 
 \noindent
-Doraemon challenges Nobita to find the secret root by performing a sequence of queries. Nobita can use two types of queries:
-\begin{itemize}
-  \item \textbf{Type I}: Given a node $u$, Doraemon tells Nobita the current color of node $u$.
-  \item \textbf{Type II}: Given a list of nodes $u_1, u_2, \dots, u_k$, Doraemon intends to flip the color of all nodes on the path from the secret root to $u_i$, for each $i$ from $1$ to $k$.
-\end{itemize}
+This specific poison is called ``Microbial Toxin'' which severely impairs the immune system over a short period. Fortunately, the effect can be delayed or even cured by using antibiotics.
 
 \noindent
-However, because Doraemon was lazy, he used AI to write the program that handles Type II queries. Unfortunately, the AI made a critical mistake, as shown in the pseudocode below:
-
-\begin{verbatim}
-procedure QueryTypeII(S):
-    n = length(S)
-    SortByDepth(S) 
-    
-    for i = 1 to n - 1 do:
-        flipPathTo(S[i])
-\end{verbatim}
+The antibiotics can be specifically synthesized by combining $N$ microorganisms together. For microorganism $i$, it must be selected in the range of $l_i$ to $r_i$ milligrams.
 
 \noindent
-Specifically, when a Type II query is made, the algorithm first sorts the given nodes $S = \{u_1, u_2, \dots, u_k\}$ by their depth (their distance from the secret root), such that $S[1]$ has the smallest depth and $S[n]$ has the greatest depth. It then performs the flip operation on the path from the secret root toevery node in the sorted list \textit{except} the one with the greatest depth. If there are multiple nodes tied for the greatest depth, their order in the sorted list is chosen uniformly at random, and the one placed at the very end ($S[n]$) is omitted from the flips.
+Since maximizing the amount of microorganisms in antibiotics can cause an antibiotics overdose, Conan is given a number $P$, which signifies the maximum antibiotics tolerance of a normal person. Conan wants to at least save people from homicide in this incident, so he wants to find the possible way to synthesize the antibiotics using a total of $i$ milligrams of microorganisms when $i$ is $0$ to $P$. So he wants you to calculate these values for him.
+
+\InputFile
 
 \noindent
-Your task is to write a program that helps Nobita find the secret root of the tree using at most \textbf{850} total queries.
-
-\section*{\sffamily Interaction}
+The first line contains integers $N,P$ ($1 \le N \le 1\,000;1 \le P \le 50\,000$) --- the number of microorganisms and the maximum milligram for antibiotics overdose.
 
 \noindent
-First, your program should read the integer $N$ ($2 \le N \le 10^5$) from the standard input, which is the number of vertices in the tree. 
-The next $N - 1$ lines each contain two integers $u$ and $v$ ($1 \le u, v \le N$), representing an undirected edge between node $u$ and node $v$.
+The next $N$ lines contain integers $l_i,r_i$ ($0 \le l_i \le r_i \le 50\,000$)
+
+\OutputFile
 
 \noindent
-Then, your program can start making queries. To ask a query, output it to the standard output in one of the following formats:
-\begin{itemize}
-  \item \verb|? 1| $u$ (where $1 \le u \le N$). You will receive a single integer from the standard input: $0$ if node $u$ is currently white, or $1$ if it is black.
-  \item \verb|? 2| $k$ $u_1$ $u_2$ $\dots$ $u_k$ (where $1 \le k \le N$ and all $u_i$ are distinct). The judge will process the buggy flips. You will receive a single integer $1$ from the standard input as an acknowledgment that the operation is complete.
-\end{itemize}
+Print $P+1$ integers --- the number of possible ways to synthesize antibiotics using $i$ milligrams of microorganisms modulo $10^9+7$ when $i$ is $0$ to $P$.
 
-\noindent
-When you have confidently determined the secret root $R$, output your answer in the format \verb|!| $R$ and terminate your program immediately. This final output does not count towards the 850 query limit.
+\Example
 
-\noindent
-If you make more than 850 queries, or if you make an invalid query, your program will receive a ``Wrong Answer'' verdict.
-
-\textit{Notes on interactive judging:}
-\begin{itemize}
-  \item \textit{The secret root and the initial colors of the nodes are fixed in advance. The grader is NOT adaptive.}
-  \item \textit{Do not forget to flush output buffers after writing.}
-\end{itemize}
-
-\vspace{5mm}
-
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l c r}
-  \sffamily{\textbf{Read}} & \sffamily{\textbf{Sample Interaction}} & \sffamily{\textbf{Write}}
-\end{tabular*}
-
-\hfill\iobox{\begin{tabular}{@{}l@{}}3 \\ 1 2 \\ 1 3\end{tabular}}\\
-\vspace{1mm}
-\iobox{? 1 1}\hfill\\
-\vspace{1mm}
-\hfill\iobox{0}\\
-\vspace{1mm}
-\iobox{? 2 2 1 3}\hfill\\
-\vspace{1mm}
-\hfill\iobox{1}\\
-\vspace{1mm}
-\iobox{? 1 1}\hfill\\
-\vspace{1mm}
-\hfill\iobox{1}\\
-\vspace{1mm}
-\iobox{! 2}\hfill
-
-\Explaination{\upshape\normalsize 
-In the sample interaction, the tree has 3 nodes and edges $(1,2)$ and $(1,3)$. The secret root is $2$. All nodes are initially white ($0$).
-First, we ask for the color of node $1$ and receive $0$. 
-Then, we submit a Type II query for nodes $1$ and $3$. The depth of node $1$ (from root $2$) is $1$, and the depth of node $3$ is $2$. The AI sorts them by depth, so the list becomes $[1, 3]$. It flips the path to all nodes except the last one. Thus, only the path to node $1$ (which consists of nodes $2$ and $1$) is flipped.
-Next, we ask for the color of node $1$ again and receive $1$. We then correctly guess that the root is $2$.
+\begin{example}
+\exmp{1}{3 6
+1 3
+2 4
+0 1
+}{0 0 0 1 3 5 5
 }
+\end{example}
 
 \pagebreak
 

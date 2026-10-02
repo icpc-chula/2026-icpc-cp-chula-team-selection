@@ -1,81 +1,56 @@
-\begin{problem}{B}{Hello}{1 second}
+\begin{problem}{B}{Bike}{2.5 seconds}
 
 \noindent
-Hello World
+Professor Agasa has just finished inventing a Vehicle Tracer for Conan. Unfortunately, it can only work perfectly on the motorbike arranged in a circular-shaped parking lot, so the professor decided to test the speed of the device.
+
+\noindent
+The parking lot slots are numbered $0$ to $n_i-1$ iteratively in clockwise order, and the motorbike is occupied in every parking slot with the following condition:
+
+\begin{itemize}
+
+    \item The motorbike number $0$ is in slot $0$
+
+    \item The motorbike number $i$ must be exactly $x_i$ slots from motorbike number $i-1$ in clockwise order
+
+\end{itemize}
+
+\noindent
+In order to use this device, it must be given a set of $Q$ inquiries, each one consists of 5 parameters, which are $n_i,x_i,d_i,l_i,r_i$, and it will return the $d_i$'th minimum number of motor bike in parking lot $l_i$ to $r_i$ in clockwise order.
+
+\noindent
+Since the device is in the experimental phase, it can only work on small parameters, so the professor wants to test it on large parameters with $n_i$ as primes exclusively. He wants you to improve the calculating capacity of the device given the set of inquiries in advance.
 
 \InputFile
 
 \noindent
-Hello World
+The first line contains an integer $Q$ ($1 \le Q \le 5\cdot 10^4$) --- the number of inquiries.
+
+\noindent
+For each inquiry:
+
+\noindent
+The first line contains an integer $n_i,x_i,d_i,l_i,r_i$ ($2 \le n_i \le 10^8;0 \le l_i \le r_i \le n_i-1;1 \le x_i \le n_i-1;1 \le x_i \le r_i-l_i+1$).
+
+\noindent
+It is guaranteed that the $n_i$ in each inquiry is prime.
 
 \OutputFile
 
 \noindent
-Hello World
+For each inquiry, output one line containing $1$ integer, which is the $d_i$'th minimum number of motor bike in parking lot $l_i$ to $r_i$ in clockwise order.
 
-\Examples
-
-\begin{example}
-\exmp{1}{
-1234
-}{
-Hello World
-}
-\end{example}
-\Explaination{\upshape\normalsize The glass diagonals cut the interior of the $5 \times 6$ pocket into many separate regions, as drawn below. Breaking the glass in $13$ suitably chosen cells is enough to connect them all into one region, and no smaller set of breaks works.}
-
-\begin{center}
-\begin{tikzpicture}[scale=0.62, line join=round]
-  % cell grid lines (open cell boundaries)
-  \draw[gray!40] (1,0)--(1,5) (2,0)--(2,5) (3,0)--(3,5) (4,0)--(4,5) (5,0)--(5,5);
-  \draw[gray!40] (0,1)--(6,1) (0,2)--(6,2) (0,3)--(6,3) (0,4)--(6,4);
-  % outer border of the pocket
-  \draw[very thick] (0,0) rectangle (6,5);
-  % glass diagonals, transcribed row by row from the input
-  \draw[thick,blue!70!black]
-    (0,4)--(1,5) (1,5)--(2,4) (2,4)--(3,5) (3,4)--(4,5) (4,5)--(5,4) (5,4)--(6,5) % row 1: /\//\/
-    (0,4)--(1,3) (1,3)--(2,4) (2,4)--(3,3) (3,3)--(4,4) (4,4)--(5,3) (5,3)--(6,4) % row 2: \/\/\/
-    (0,2)--(1,3) (1,3)--(2,2) (2,2)--(3,3) (3,2)--(4,3) (4,3)--(5,2) (5,2)--(6,3) % row 3: /\//\/
-    (0,2)--(1,1) (1,1)--(2,2) (2,2)--(3,1) (3,1)--(4,2) (4,2)--(5,1) (5,1)--(6,2) % row 4: \/\/\/
-    (0,1)--(1,0) (1,0)--(2,1) (2,1)--(3,0) (3,0)--(4,1) (4,1)--(5,0) (5,0)--(6,1);% row 5: \/\/\/
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 1: the $5 \times 6$ glass layout.}
-\end{center}
+\Example
 
 \begin{example}
-\exmp{2}{
-2 2
-\textbackslash/
-/\textbackslash
-}{
-  3
+\exmp{1}{3
+7 2 4 1 6
+7 2 2 2 4
+23 4 8 2 19
+}{4
+2
+10
 }
 \end{example}
-\Explaination{\upshape\normalsize Here the four diagonals meet at the centre and cut the $2 \times 2$ pocket into the four regions shown below. For instance, breaking the glass in the top-left, bottom-left, and bottom-right cells connects all of them into one region, so $3$ operations suffice; no fewer than $3$ can work.}
-
-\begin{center}
-\begin{tikzpicture}[scale=1.6, line join=round]
-  % the four regions, coloured
-  \fill[blue!12]   (0,2)--(2,2)--(1,1)--cycle; % top
-  \fill[orange!18] (0,0)--(0,2)--(1,1)--cycle; % left
-  \fill[green!16]  (0,0)--(2,0)--(1,1)--cycle; % bottom
-  \fill[red!12]    (2,0)--(2,2)--(1,1)--cycle; % right
-  % open cell boundaries
-  \draw[gray!55,dashed] (1,0)--(1,2) (0,1)--(2,1);
-  % outer border
-  \draw[very thick] (0,0) rectangle (2,2);
-  % glass diagonals (the two diagonals meet at the centre)
-  \draw[thick,blue!70!black] (0,0)--(2,2) (0,2)--(2,0);
-  % region labels
-  \node at (1,1.58) {\small 1};
-  \node at (0.42,1) {\small 2};
-  \node at (1,0.42) {\small 3};
-  \node at (1.58,1) {\small 4};
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 2: the glass forms an ``X'' that cuts the pocket into four regions.}
-\end{center}
 
 \pagebreak
 
