@@ -1,22 +1,19 @@
-\begin{problem}{K}{Knockout}{1 second}
+\begin{problem}{K}{Kink of Kendo}{1 second}
 
 \noindent
-There are $N$ participants in a tournament. Initially, every participant has $0$ losses.
+After a year of solving murder cases at every regional kendo tournament he entered, Heiji has finally earned a place in the national kendo tournament. The participants are all exceptionally strong, and some are even rumored to be reincarnations of a demon lord from another world. Because the field is so evenly matched, the tournament owner has decided to introduce a new tournament system.
 
 \noindent
-The tournament proceeds in rounds. In each match, two participants who have not yet been eliminated are chosen uniformly at random to compete.
+There are $N$ participants in the tournament. Initially, every participant has $0$ defeats. The tournament proceeds with a series of matches. In each match, two participants who have not yet been eliminated are chosen uniformly at random to face each other. Since all participants are equally strong, each participant has a $50\%$ chance of winning, and the loser receives one defeat.
 
 \noindent
-Each participant has an equal probability of winning the match. The loser receives one loss. A participant is knocked out immediately after receiving their $K$-th loss and can no longer participate in any further matches.
+A participant is \textbf{eliminated} immediately after receiving their $K$-th defeat, and cannot take part in any further matches. The tournament ends whenn exactly one participant remains, who is declared the champion.
 
 \noindent
-The tournament ends when exactly one participant remains.
+Determine the \textbf{expected total number of matches} played before the tournament ends.
 
 \noindent
-Determine the expected total number of matches played until the tournament ends.
-
-\noindent
-Let $P = 998\,244\,353$. It can be shown that the answer can be expressed as an irreducible fraction $\frac{x}{y}$, where $x$ and $y$ are integers and $y \not\equiv 0 \pmod P$. Output the integer equal to $x\cdot y^{-1} \pmod P$. In other words, output such an integer $a$ that $0 \le a < P$ and $a\cdot y=x \pmod P$.
+Let $P = 998,244,353$. It can be shown that the answer can be expressed as an irreducible fraction $\frac{x}{y}$, where $x$ and $y$ are integers and $y \not\equiv 0 \pmod P$. Output the integer equal to $x\cdot y^{-1} \pmod P$. In other words, output such an integer $a$ that $0 \le a < P$ and $a\cdot y \equiv x \pmod P$.
 
 \InputFile
 
@@ -26,7 +23,7 @@ The input consists of a single line containing two integers $N$, $K$ ($2 \le N \
 \OutputFile
 
 \noindent
-Print the expected number of matches played modulo $998244353$.
+Print the expected number of matches played modulo $998,244,353$.
 
 \Examples
 
