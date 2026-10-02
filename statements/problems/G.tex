@@ -1,81 +1,64 @@
-\begin{problem}{G}{Hello}{1 second}
+\begin{problem}{G}{Gambler's Trick}{1 second}
 
 \noindent
-Hello World
+Kaito and Aoko are playing a board game to decide who will pay for their meal at the cafe.
+
+\noindent
+The rules are simple. There are $M$ squares numbered from $1$ to $M$, and a $D$-sided die whose faces are numbered from $1$ to $D$. Each player controls a character, and they play independently.
+
+\noindent
+Initially, both characters are on square $A$. On each turn, a player rolls the die. If the result is $d$ and their character is currently on square $x$, the character moves to square $x+d$. If $x+d \ge M$, the player \textbf{immediately loses} and their game ends. Otherwise, the player \textbf{must} continue playing until they have completed $N$ turns.
+
+\noindent
+Of course, Kaito has a trick up his sleeve. He can secretly control the die and make it show any value from $1$ to $D$.
+
+\noindent
+Let $P_i$ be Kaito's position after the $i$-th turn. Kaito wants to show off by moving as far ahead as possible as early as possible. Therefore, among all ways for him to survive all $N$ turns, he wants the sequence $P_1,P_2,\ldots,P_N$ to be \textbf{lexicographically largest}.
+
+\noindent
+For two different arrays $X$ and $Y$ of the same length, $X$ is \textbf{lexicographically larger} than $Y$ if, at the first position where they differ, $X$ has the larger value.
+
+\noindent
+Find Kaito's desired sequence, or print $-1$ if it is impossible for him to survive all $N$ turns.
 
 \InputFile
 
 \noindent
-Hello World
+The first line contains an integer $T$, the number of test cases.
+
+\noindent
+Each test case consists of a single line containing four integers $N$, $D$, $A$, and $M$ ($1 \le N \le 2 \cdot 10^5,\ 4 \le D \le 10^9,\ 1 \le A < M \le 10^9$) --- the number of turns, the number of faces on the die, the initial square of the characters, and the losing square, respectively.
+
+\noindent
+It is guaranteed that the sum of $N$ over all test cases does not exceed $2 \cdot 10^5$.
 
 \OutputFile
 
 \noindent
-Hello World
+For each test case, print one line.
+
+\noindent
+If it is impossible for Kaito to survive all $N$ turns, print $-1$.
+
+\noindent
+Otherwise, print $N$ integers $P_1, P_2, \ldots, P_N$ --- Kaito's lexicographically largest possible sequence of positions.
 
 \Examples
 
 \begin{example}
-\exmp{1}{
-1234
-}{
-Hello World
+\exmp{1}{5
+3 4 1 14
+3 4 5 14
+3 4 10 14
+3 4 11 14
+3 4 2 16
+}{5 9 13
+9 12 13
+11 12 13
+-1
+6 10 14
 }
 \end{example}
-\Explaination{\upshape\normalsize The glass diagonals cut the interior of the $5 \times 6$ pocket into many separate regions, as drawn below. Breaking the glass in $13$ suitably chosen cells is enough to connect them all into one region, and no smaller set of breaks works.}
-
-\begin{center}
-\begin{tikzpicture}[scale=0.62, line join=round]
-  % cell grid lines (open cell boundaries)
-  \draw[gray!40] (1,0)--(1,5) (2,0)--(2,5) (3,0)--(3,5) (4,0)--(4,5) (5,0)--(5,5);
-  \draw[gray!40] (0,1)--(6,1) (0,2)--(6,2) (0,3)--(6,3) (0,4)--(6,4);
-  % outer border of the pocket
-  \draw[very thick] (0,0) rectangle (6,5);
-  % glass diagonals, transcribed row by row from the input
-  \draw[thick,blue!70!black]
-    (0,4)--(1,5) (1,5)--(2,4) (2,4)--(3,5) (3,4)--(4,5) (4,5)--(5,4) (5,4)--(6,5) % row 1: /\//\/
-    (0,4)--(1,3) (1,3)--(2,4) (2,4)--(3,3) (3,3)--(4,4) (4,4)--(5,3) (5,3)--(6,4) % row 2: \/\/\/
-    (0,2)--(1,3) (1,3)--(2,2) (2,2)--(3,3) (3,2)--(4,3) (4,3)--(5,2) (5,2)--(6,3) % row 3: /\//\/
-    (0,2)--(1,1) (1,1)--(2,2) (2,2)--(3,1) (3,1)--(4,2) (4,2)--(5,1) (5,1)--(6,2) % row 4: \/\/\/
-    (0,1)--(1,0) (1,0)--(2,1) (2,1)--(3,0) (3,0)--(4,1) (4,1)--(5,0) (5,0)--(6,1);% row 5: \/\/\/
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 1: the $5 \times 6$ glass layout.}
-\end{center}
-
-\begin{example}
-\exmp{2}{
-2 2
-\textbackslash/
-/\textbackslash
-}{
-  3
-}
-\end{example}
-\Explaination{\upshape\normalsize Here the four diagonals meet at the centre and cut the $2 \times 2$ pocket into the four regions shown below. For instance, breaking the glass in the top-left, bottom-left, and bottom-right cells connects all of them into one region, so $3$ operations suffice; no fewer than $3$ can work.}
-
-\begin{center}
-\begin{tikzpicture}[scale=1.6, line join=round]
-  % the four regions, coloured
-  \fill[blue!12]   (0,2)--(2,2)--(1,1)--cycle; % top
-  \fill[orange!18] (0,0)--(0,2)--(1,1)--cycle; % left
-  \fill[green!16]  (0,0)--(2,0)--(1,1)--cycle; % bottom
-  \fill[red!12]    (2,0)--(2,2)--(1,1)--cycle; % right
-  % open cell boundaries
-  \draw[gray!55,dashed] (1,0)--(1,2) (0,1)--(2,1);
-  % outer border
-  \draw[very thick] (0,0) rectangle (2,2);
-  % glass diagonals (the two diagonals meet at the centre)
-  \draw[thick,blue!70!black] (0,0)--(2,2) (0,2)--(2,0);
-  % region labels
-  \node at (1,1.58) {\small 1};
-  \node at (0.42,1) {\small 2};
-  \node at (1,0.42) {\small 3};
-  \node at (1.58,1) {\small 4};
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 2: the glass forms an ``X'' that cuts the pocket into four regions.}
-\end{center}
 
 \pagebreak
 

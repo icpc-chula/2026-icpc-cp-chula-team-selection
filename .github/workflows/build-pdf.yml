@@ -40,8 +40,8 @@ jobs:
 
       - name: Compile individual problems
         run: |
-          find national-internal/problems -name "*.tex" | sort | while read tex; do
-            bash compile-problem.sh "$tex" "national-internal/problems"
+          find statements/problems -name "*.tex" | sort | while read tex; do
+            bash compile-problem.sh "$tex" "statements/problems"
           done
 
       - name: Set release date
@@ -54,4 +54,4 @@ jobs:
           name: "Contest PDFs (${{ env.DATE }})"
           files: |
             **/entry.pdf
-            national-internal/problems/*.pdf
+            statements/problems/*.pdf
