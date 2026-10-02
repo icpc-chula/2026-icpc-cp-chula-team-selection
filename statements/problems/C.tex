@@ -1,81 +1,88 @@
-\begin{problem}{C}{Hello}{1 second}
+\begin{problem}{C}{Conan-kun, Please Stop Shooting Kogoro}{1 second}
 
 \noindent
-Hello World
+Kogoro is investigating a city consisting of $N$ districts connected by $M$ two-way roads. The $i$-th road connects districts $u_i$ and $v_i$ and has length $w_i$. It is possible to travel between every pair of districts.
+
+\noindent
+Kogoro carefully wrote down the endpoints and length of every road on a board. Unfortunately, just as Conan fired his tranquilizer needle at him, Kogoro collapsed onto the board and erased the lengths of the last $K$ roads.
+
+\noindent
+Fortunately, Kogoro still remembers the $K$ erased values: $A_1,A_2,\ldots,A_K$. However, he no longer remembers which value belonged to which road.
+
+\noindent
+For a path $P$ from district $1$ to district $N$:
+
+\begin{itemize}
+   \item The \textbf{best-case length} of $P$ is the minimum possible length of $P$ over all assignments of the erased weights.
+   \item The \textbf{worst-case length} of $P$ is the maximum possible length of $P$ over all assignments of the erased weights.
+   \item The \textbf{expected length} of $P$ is the expected length of $P$ when the assignment of the erased weights is chosen uniformly at random.
+\end{itemize}
+
+\noindent
+Among all possible paths from district $1$ to district $N$, find the minimum best-case length, the minimum worst-case length, and the minimum expected length. The paths that minimize these three values are not necessarily the same.
 
 \InputFile
 
 \noindent
-Hello World
+The first line contains a single integer $T$ --- the number of test cases.
+
+\noindent
+Each test case consists of the following lines.
+
+\noindent
+The first line contains three integers $N$, $M$, and $K$ $(1 \le N \le 10^4,\ N-1 \le M \le 10^4,\ 1 \le K \le \min(M,100))$ --- the number of districts, the number of roads, and the number of roads whose lengths were erased, respectively.
+
+\noindent
+Each of the next $M-K$ lines contains three integers $u_i$, $v_i$, and $w_i$ $(1 \le u_i,v_i \le N,\ u_i \ne v_i,\ 1 \le w_i \le 10^4)$ --- the endpoints and the length of the $i$-th road.
+
+\noindent
+Each of the next $K$ lines contains two integers $u_i$ and $v_i$ $(1 \le u_i,v_i \le N,\ u_i \ne v_i)$ --- the endpoints of the $i$-th road whose length was erased.
+
+\noindent
+The next line contains $K$ integers $A_1,A_2,\ldots,A_K$ $(1 \le A_i \le 10^4)$ --- the erased road lengths.
+
+\noindent
+It is guaranteed that all unordered pairs $(u_i,v_i)$ are distinct, the graph is connected, and the sum of $M$ over all test cases does not exceed $10^4$.
 
 \OutputFile
 
 \noindent
-Hello World
+For each test case, print one line containing three integers $B$, $W$, and $E$ --- the minimum best-case length, the minimum worst-case length, and the minimum expected length, respectively. The answer for each test case should be printed on a separate line.
 
-\Examples
+\noindent
+For the expected length, if its value can be represented as an irreducible fraction $\frac{p}{q}$, print $ E = p \cdot q^{-1} \bmod 998244353$ where $q^{-1}$ denotes the multiplicative inverse of $q$ modulo $998244353$.
 
-\begin{example}
-\exmp{1}{
-1234
-}{
-Hello World
-}
-\end{example}
-\Explaination{\upshape\normalsize The glass diagonals cut the interior of the $5 \times 6$ pocket into many separate regions, as drawn below. Breaking the glass in $13$ suitably chosen cells is enough to connect them all into one region, and no smaller set of breaks works.}
-
-\begin{center}
-\begin{tikzpicture}[scale=0.62, line join=round]
-  % cell grid lines (open cell boundaries)
-  \draw[gray!40] (1,0)--(1,5) (2,0)--(2,5) (3,0)--(3,5) (4,0)--(4,5) (5,0)--(5,5);
-  \draw[gray!40] (0,1)--(6,1) (0,2)--(6,2) (0,3)--(6,3) (0,4)--(6,4);
-  % outer border of the pocket
-  \draw[very thick] (0,0) rectangle (6,5);
-  % glass diagonals, transcribed row by row from the input
-  \draw[thick,blue!70!black]
-    (0,4)--(1,5) (1,5)--(2,4) (2,4)--(3,5) (3,4)--(4,5) (4,5)--(5,4) (5,4)--(6,5) % row 1: /\//\/
-    (0,4)--(1,3) (1,3)--(2,4) (2,4)--(3,3) (3,3)--(4,4) (4,4)--(5,3) (5,3)--(6,4) % row 2: \/\/\/
-    (0,2)--(1,3) (1,3)--(2,2) (2,2)--(3,3) (3,2)--(4,3) (4,3)--(5,2) (5,2)--(6,3) % row 3: /\//\/
-    (0,2)--(1,1) (1,1)--(2,2) (2,2)--(3,1) (3,1)--(4,2) (4,2)--(5,1) (5,1)--(6,2) % row 4: \/\/\/
-    (0,1)--(1,0) (1,0)--(2,1) (2,1)--(3,0) (3,0)--(4,1) (4,1)--(5,0) (5,0)--(6,1);% row 5: \/\/\/
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 1: the $5 \times 6$ glass layout.}
-\end{center}
+\Example
 
 \begin{example}
-\exmp{2}{
-2 2
-\textbackslash/
-/\textbackslash
-}{
-  3
+\exmp{1}{1
+4 5 2
+1 2 1
+1 3 2
+3 4 1
+2 4
+1 4
+4 1
+}{1 3 499122179
 }
 \end{example}
-\Explaination{\upshape\normalsize Here the four diagonals meet at the centre and cut the $2 \times 2$ pocket into the four regions shown below. For instance, breaking the glass in the top-left, bottom-left, and bottom-right cells connects all of them into one region, so $3$ operations suffice; no fewer than $3$ can work.}
+
+\Note
 
 \begin{center}
-\begin{tikzpicture}[scale=1.6, line join=round]
-  % the four regions, coloured
-  \fill[blue!12]   (0,2)--(2,2)--(1,1)--cycle; % top
-  \fill[orange!18] (0,0)--(0,2)--(1,1)--cycle; % left
-  \fill[green!16]  (0,0)--(2,0)--(1,1)--cycle; % bottom
-  \fill[red!12]    (2,0)--(2,2)--(1,1)--cycle; % right
-  % open cell boundaries
-  \draw[gray!55,dashed] (1,0)--(1,2) (0,1)--(2,1);
-  % outer border
-  \draw[very thick] (0,0) rectangle (2,2);
-  % glass diagonals (the two diagonals meet at the centre)
-  \draw[thick,blue!70!black] (0,0)--(2,2) (0,2)--(2,0);
-  % region labels
-  \node at (1,1.58) {\small 1};
-  \node at (0.42,1) {\small 2};
-  \node at (1,0.42) {\small 3};
-  \node at (1.58,1) {\small 4};
-\end{tikzpicture}
-\\[2pt]
-{\itshape Sample 2: the glass forms an ``X'' that cuts the pocket into four regions.}
+  \def \htmlPixelsInCm {45}
+  \includegraphics[width=0.75\textwidth]{./assets/C.png} \\
+  \small{Fig. 1: Illustration of all possible scenarios in the sample case.}
 \end{center}
+
+\noindent
+Fig. 1 illustrates all possible scenarios for the sample case.
+
+\begin{itemize}
+    \item Path $1 \to 4$ minimizes the best-case length, which is $1$.
+    \item Path $1 \to 3 \to 4$ minimizes the worst-case length, which is $3$. The worst-case length of path $1 \to 4$ is $4$, as shown in Scenario 2.
+    \item Path $1 \to 4$ minimizes the expected length, which is $(4 + 1) / 2$. Therefore, the expected length is printed as $5 \cdot 2^{-1} \bmod 998244353$.
+\end{itemize}
 
 \pagebreak
 
