@@ -1,18 +1,16 @@
 \begin{problem}{I}{Inhabited Islands}{1 second}
 
 \noindent
-During a summer vacation, Conan and the Detective Boys visited the Jabberwock Archipelago. This archipelago consists of $N$ islands connected by exactly $N-1$ bridges, forming a network that allows travel between any two islands. However, the bridges are not entirely secure. Each bridge is assigned a specific danger level, which can be a positive, negative, or even zero value.
+During a summer vacation, Conan, Ran and Sonoko visited the Jabberwock Archipelago. The archipelago consists of $N$ islands connected by exactly $N-1$ bridges, so that it was possible to travel between any two islands. 
 
 \noindent
-To ensure their adventure remains relatively risk-free, the Detective Boys defined an unordered pair of distinct islands $(u, v)$ as ``safe'' if the simple path between them strictly meets two conditions.
-
-\begin{itemize}
-\item the \textbf{sum} of the danger levels of all bridges on the path must be \textbf{negative}.
-\item the \textbf{product} of the danger levels of all bridges on the path must also be \textbf{negative}.
-\end{itemize}
+Centuries earlier, a massive ghost outbreak had occurred in the archipelago. The priests worked tirelessly to seal the spirits into the piers of the bridges, and ever since then, the bridges had been regarded as sacred places. Each bridge carried a \textbf{spiritual level}, which could be positive, negative, or even zero.
 
 \noindent
-Your task is to help Conan analyze the archipelago. You must count the total number of ``safe'' unordered pairs of islands. Additionally, for each island, you need to find the smallest island index that forms a ``safe'' pair with it.
+That summer, the villagers wanted to host a festival and needed a simple path to serve as the street for the carnival. The village elder told the group that a path between two distinct islands $u$ and $v$ was considered ``safe'' if both the \textbf{sum} and the \textbf{product} of the spiritual levels of all bridges on the path were \textbf{negative}.
+
+\noindent
+Help the village elder count the total number of safe simple paths, where the paths from $u$ to $v$ and from $v$ to $u$ count as the same path. Additionally, for each island, find the \textbf{smallest} index of an island that forms a safe path with it (or report $-1$ if there is none).
 
 \InputFile
 
@@ -20,7 +18,7 @@ Your task is to help Conan analyze the archipelago. You must count the total num
 The first line of the input contains a single integer $T$ ($1 \le T \le 10,000$), representing the number of test cases.
 
 \noindent
-The first line of each test case contains a single integer $N$ ($1 \le N \le 10^5$), denoting the number of islands.
+The first line of each test case contains a single integer $N$ ($1 \le N \le 10^5$), denoting the number of islands in the Archipelago.
 
 \noindent
 Each of the next $N-1$ lines contains three integers $u$, $v$, and $w$ ($1 \le u, v \le N$, $-10^9 \le w \le 10^9$), representing a bridge connecting island $u$ and island $v$ with a danger level of $w$. It is guaranteed that the given edges form a valid tree.
