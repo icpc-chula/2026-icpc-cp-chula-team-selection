@@ -1,21 +1,21 @@
 \begin{problem}{B}{Bike}{2.5 seconds}
 
 \noindent
-Professor Agasa has just finished inventing a Vehicle Tracer for Conan. Unfortunately, it can only work perfectly on the motorbike arranged in a circular-shaped parking lot, so the professor decided to test the speed of the device.
+Professor Agasa has just finished inventing a Vehicle Tracer for Conan. Unfortunately, it can only work perfectly on the bike arranged in a circular-shaped parking lot, so the professor decided to test the speed of the device.
 
 \noindent
-The parking lot slots are numbered $0$ to $n_i-1$ iteratively in clockwise order, and the motorbike is occupied in every parking slot with the following condition:
+The parking lot slots are numbered $0$ to $n_i-1$ iteratively in clockwise order, and the bike is occupied in every parking slot with the following condition:
 
 \begin{itemize}
 
-    \item The motorbike number $0$ is in slot $0$
+    \item The bike number $0$ is in slot $0$
 
-    \item The motorbike number $i$ must be exactly $x_i$ slots from motorbike number $i-1$ in clockwise order
+    \item The bike number $i$ must be exactly $x_i$ slots from bike number $i-1$ in clockwise order
 
 \end{itemize}
 
 \noindent
-In order to use this device, it must be given a set of $Q$ inquiries, each one consists of 5 parameters, which are $n_i,x_i,d_i,l_i,r_i$, and it will return the $d_i$'th minimum number of motor bike in parking lot $l_i$ to $r_i$ in clockwise order.
+In order to use this device, it must be given a set of $Q$ inquiries, each one consists of 5 parameters, which are $n_i,x_i,d_i,l_i,r_i$, and it will return the $d_i$'th minimum number of bikes in parking lot $l_i$ to $r_i$ in clockwise order.
 
 \noindent
 Since the device is in the experimental phase, it can only work on small parameters, so the professor wants to test it on large parameters with $n_i$ as primes exclusively. He wants you to improve the calculating capacity of the device given the set of inquiries in advance.
@@ -29,7 +29,7 @@ The first line contains an integer $Q$ ($1 \le Q \le 5\cdot 10^4$) --- the numbe
 For each inquiry:
 
 \noindent
-The first line contains an integer $n_i,x_i,d_i,l_i,r_i$ ($2 \le n_i \le 10^8;0 \le l_i \le r_i \le n_i-1;1 \le x_i \le n_i-1;1 \le x_i \le r_i-l_i+1$).
+The first line contains integers $n_i,x_i,d_i,l_i,r_i$ ($2 \le n_i \le 10^8;0 \le l_i \le r_i \le n_i-1;1 \le x_i \le n_i-1;1 \le x_i \le r_i-l_i+1$).
 
 \noindent
 It is guaranteed that the $n_i$ in each inquiry is prime.
@@ -37,7 +37,7 @@ It is guaranteed that the $n_i$ in each inquiry is prime.
 \OutputFile
 
 \noindent
-For each inquiry, output one line containing $1$ integer, which is the $d_i$'th minimum number of motor bike in parking lot $l_i$ to $r_i$ in clockwise order.
+For each inquiry, output one line containing $1$ integer, which is the $d_i$'th minimum number of bikes in parking lot $l_i$ to $r_i$ in clockwise order.
 
 \Examples
 
